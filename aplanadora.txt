@@ -1,0 +1,15 @@
+
+function steamrollArray(arr){
+    const fattenedArray = [];
+
+    for (let i = 0; i < arr.length ; i++){
+        if(Array.isArray(arr[i])){
+            fattenedArray.push(...steamrollArray(arr[i]));
+        } else {
+            fattenedArray.push(arr[i]);
+        }
+    }
+    return fattenedArray;
+}
+
+steamrollArray([1, [2], [3, [[4]]]]);

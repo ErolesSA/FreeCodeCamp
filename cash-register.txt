@@ -1,0 +1,59 @@
+
+var arr = [
+    { name: "ONE HUNDRED", val: 100 },
+    { name: "TWENTY", val: 20 },
+    { name: "TEN", val: 10 },
+    { name: "FIVE", val: 5 },
+    { name: "ONE", val: 1 },
+    { name: "QUARTER", val: 0.25 },
+    { name: "DIME", val: 0.1 },
+    { name: "NICKEL", val: 0.05 },
+    { name: "PENNY", val: 0.01 }
+];
+
+function checkCashRegister(price, cash, cid) {
+    var salida = { status: null, change: [] };
+    var change = cash - price;
+    var registro = cid.reduce(function (acc, curr) {
+        acc.total += curr[1];
+        acc[curr[0]] = curr[1];
+        return acc;
+    }, { total: 0 });
+
+    if (registro.total === change) {
+        salida.status = "CLOSED";
+        salida.change = cid;
+        return salida;
+    }
+    if (registro.total < change) {
+        salida.status = "INSUFFICIENT_FUNDS";
+        return salida;
+    }
+
+
+    var newArr = arr.reduce(function (acc, curr) {
+        var value = 0;
+        while (registro[curr.name] > 0 && change >= curr.val) {
+            change -= curr.val;
+            registro[curr.name] -= curr.val;
+            value += curr.val;
+            change = Math.round(change * 100)/100;
+        }
+        if (value > 0) {
+            acc.push([curr.name, value]);
+        }
+        return acc;
+
+    }, []);
+    if (newArr.length < 1 || change > 0) {
+        salida.status = "INSUFFICIENT_FUNDS";
+        return salida;
+    }
+    salida.status = "OPEN";
+    salida.change = newArr;
+    return salida;
+
+}
+
+var cid = [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]];
+checkCashRegister(19.5, 20, cid);

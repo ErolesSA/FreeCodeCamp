@@ -1,0 +1,20 @@
+function truncateString(str, num) {
+
+let word;
+console.log(num);
+if(num <= 42){
+  word = str.slice(0, num)
+  word += "...";
+
+}else{
+word = str.slice(0, num)
+  
+
+}
+
+  
+  return word;
+}
+
+//truncateString("A-tisket a-tasket A green and yellow basket", 8);
+truncateString("A-tisket a-tasket A green and yellow basket","A-tisket a-tasket A green and yellow basket".length);

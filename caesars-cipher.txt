@@ -1,0 +1,53 @@
+
+function rot13(str) {
+    const arr = [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z"
+    ];
+
+    let ban = "";
+
+    for (let i = 0; i < str.length; i++) {
+
+        const char = str[i];
+
+        const esUnaLetra = arr.includes(char);
+
+        if (esUnaLetra === false) {
+            ban += char;
+        } else {
+            const charInd = arr.findIndex((c) => c === char);
+
+            ban += arr[charInd + 13] || arr[charInd - 13];
+        }
+    }
+
+    return ban;
+}
+
+
+rot13("SERR PBQR PNZC");
